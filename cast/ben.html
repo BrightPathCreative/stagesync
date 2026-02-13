@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ben – StageSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="nav-home" href="../index.html">StageSync</a>
+      <nav class="nav-menu">
+        <a href="../cast.html">Characters and Roles</a>
+        <a href="../calendar.html">Calendar</a>
+        <a href="../chat.html">Chat</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <a href="../cast.html" class="back-link">← Back to Characters and Roles</a>
+    <header class="cast-header">
+      <h1>Ben</h1>
+      <label class="cast-select-label" for="cast-choice">Choose a character or production roles</label>
+      <select id="cast-choice" class="cast-select" aria-label="Choose character or production roles">
+        <option value="ma">Ma</option>
+        <option value="fedellah">Fedellah</option>
+        <option value="laertes">Laertes</option>
+        <option value="person">Person</option>
+        <option value="marc-antony">Marc Antony</option>
+        <option value="production-roles">Production roles</option>
+      </select>
+    </header>
+
+    <div id="panel-ma" class="cast-panel" role="region" aria-labelledby="heading-1">
+      <h2 id="heading-1">Ma</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Very caring, overprotective, motherly. (Runner.)</div>
+        <textarea class="personality-field" data-member="ben" data-character="ma" data-original="Very caring, overprotective, motherly. (Runner.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="ben" data-character="ma" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="ben" data-character="ma" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="ben" data-character="ma" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-fedellah" class="cast-panel" role="region" aria-labelledby="heading-2" hidden>
+      <h2 id="heading-2">Fedellah</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Leader of the whale hunters and prophet (in case you forgot). Mysterious. (Moby Dick.)</div>
+        <textarea class="personality-field" data-member="ben" data-character="fedellah" data-original="Leader of the whale hunters and prophet (in case you forgot). Mysterious. (Moby Dick.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="ben" data-character="fedellah" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="ben" data-character="fedellah" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="ben" data-character="fedellah" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-laertes" class="cast-panel" role="region" aria-labelledby="heading-3" hidden>
+      <h2 id="heading-3">Laertes</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Bro got cooked / dramatic. (Hamlet.)</div>
+        <textarea class="personality-field" data-member="ben" data-character="laertes" data-original="Bro got cooked / dramatic. (Hamlet.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="ben" data-character="laertes" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="ben" data-character="laertes" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="ben" data-character="laertes" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-person" class="cast-panel" role="region" aria-labelledby="heading-4" hidden>
+      <h2 id="heading-4">Person</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Curious, dumbfounded, lost in the idea of a dystopian future. (Fahrenheit 451.)</div>
+        <textarea class="personality-field" data-member="ben" data-character="person" data-original="Curious, dumbfounded, lost in the idea of a dystopian future. (Fahrenheit 451.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="ben" data-character="person" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="ben" data-character="person" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="ben" data-character="person" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-marc-antony" class="cast-panel" role="region" aria-labelledby="heading-5" hidden>
+      <h2 id="heading-5">Marc Antony</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Aggressive, annoyed. (Julius Caesar.)</div>
+        <textarea class="personality-field" data-member="ben" data-character="marc-antony" data-original="Aggressive, annoyed. (Julius Caesar.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="ben" data-character="marc-antony" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="ben" data-character="marc-antony" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="ben" data-character="marc-antony" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-production-roles" class="cast-panel" role="region" aria-labelledby="heading-prod" hidden>
+      <h2 id="heading-prod">Production roles</h2>
+      <div class="cast-section">
+        <h3>Your role</h3>
+        <p><strong>Props and costumes</strong> (with Duncan, Albie). Best a little shoddy.</p>
+      </div>
+      <div class="cast-section">
+        <h3>Memorisation</h3>
+        <p>All lines and production roles memorised before Term 1 Week 10. No scripts or notes from Term 2.</p>
+      </div>
+      <div class="personal-notes">
+        <label for="personal-notes-ben">Your notes</label>
+        <textarea id="personal-notes-ben" placeholder="Private notes, reminders, and ideas…"></textarea>
+      </div>
+    </div>
+  </main>
+  <script src="../js/nav.js"></script>
+  <script src="../js/cast-fields.js"></script>
+  <script src="../js/notes-edit.js"></script>
+  <script src="../js/personality-editor.js"></script>
+  <script>
+    (function () {
+      var select = document.getElementById('cast-choice');
+      var panels = {
+        'ma': document.getElementById('panel-ma'),
+        'fedellah': document.getElementById('panel-fedellah'),
+        'laertes': document.getElementById('panel-laertes'),
+        'person': document.getElementById('panel-person'),
+        'marc-antony': document.getElementById('panel-marc-antony'),
+        'production-roles': document.getElementById('panel-production-roles')
+      };
+      function showPanel(value) {
+        Object.keys(panels).forEach(function (key) {
+          panels[key].hidden = key !== value;
+        });
+      }
+      select.addEventListener('change', function () { showPanel(select.value); });
+      showPanel(select.value);
+    })();
+  </script>
+</body>
+</html>

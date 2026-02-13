@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jordan – StageSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="nav-home" href="../index.html">StageSync</a>
+      <nav class="nav-menu">
+        <a href="../cast.html">Characters and Roles</a>
+        <a href="../calendar.html">Calendar</a>
+        <a href="../chat.html">Chat</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <header class="cast-header">
+      <h1>Jordan</h1>
+      <label class="cast-select-label" for="cast-choice">Choose a character or production roles</label>
+      <select id="cast-choice" class="cast-select" aria-label="Choose character or production roles">
+        <option value="character-1">Character A</option>
+        <option value="character-2">Character B</option>
+        <option value="production-roles">Production roles</option>
+      </select>
+    </header>
+
+    <div id="panel-character-1" class="cast-panel" role="region" aria-labelledby="heading-char-1">
+      <h2 id="heading-char-1">Character A</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly empty">Add personality traits here.</div>
+        <textarea class="personality-field" data-member="jordan" data-character="character-1" data-original="Add personality traits here." placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="jordan" data-character="character-1" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="jordan" data-character="character-1" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="jordan" data-character="character-1" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-character-2" class="cast-panel" role="region" aria-labelledby="heading-char-2" hidden>
+      <h2 id="heading-char-2">Character B</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly empty">Add personality traits here.</div>
+        <textarea class="personality-field" data-member="jordan" data-character="character-2" data-original="Add personality traits here." placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="jordan" data-character="character-2" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="jordan" data-character="character-2" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="jordan" data-character="character-2" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-production-roles" class="cast-panel" role="region" aria-labelledby="heading-prod" hidden>
+      <h2 id="heading-prod">Production roles</h2>
+      <div class="cast-section">
+        <h3>Your role</h3>
+        <p>Add your production role here.</p>
+      </div>
+      <div class="cast-section">
+        <h3>Due by</h3>
+        <p>Add due dates here.</p>
+      </div>
+      <div class="personal-notes">
+        <label for="personal-notes-jordan">Your notes (only you can edit this)</label>
+        <textarea id="personal-notes-jordan" placeholder="Private notes, reminders, and ideas…"></textarea>
+        <p class="hint">Only you can see and edit this section.</p>
+      </div>
+    </div>
+  </main>
+  <script src="../js/nav.js"></script>
+  <script src="../js/cast-fields.js"></script>
+  <script src="../js/notes-edit.js"></script>
+  <script src="../js/personality-editor.js"></script>
+  <script>
+    (function () {
+      var select = document.getElementById('cast-choice');
+      var panels = {
+        'character-1': document.getElementById('panel-character-1'),
+        'character-2': document.getElementById('panel-character-2'),
+        'production-roles': document.getElementById('panel-production-roles')
+      };
+      function showPanel(value) {
+        Object.keys(panels).forEach(function (key) {
+          panels[key].hidden = key !== value;
+        });
+      }
+      select.addEventListener('change', function () {
+        showPanel(select.value);
+      });
+      showPanel(select.value);
+    })();
+  </script>
+</body>
+</html>

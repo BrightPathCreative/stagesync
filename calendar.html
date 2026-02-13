@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calendar – Year 9 Drama</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=2">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="nav-home" href="index.html">StageSync</a>
+      <nav class="nav-menu">
+        <a href="cast.html">Characters and Roles</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="chat.html">Chat</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <h1 class="page-title">Rehearsal schedule</h1>
+    <p>What's happening in each rehearsal and next scheduled dates.</p>
+
+    <div class="calendar-toolbar">
+      <button type="button" class="director-btn director-btn-secondary" id="calendar-prev" aria-label="Previous month">← Prev</button>
+      <h2 id="calendar-month-nav" class="calendar-month-title">Month Year</h2>
+      <button type="button" class="director-btn director-btn-secondary" id="calendar-next" aria-label="Next month">Next →</button>
+    </div>
+    <div id="calendar-month-wrap" class="calendar-month-wrap"></div>
+    <div class="calendar-legend">
+      <span class="calendar-legend-item calendar-legend-rehearsal">Rehearsal</span>
+      <span class="calendar-legend-item calendar-legend-reminder">Reminder</span>
+      <span class="calendar-legend-item calendar-legend-notices">Important notices</span>
+      <span class="calendar-legend-item calendar-legend-shows">Shows</span>
+      <button type="button" class="calendar-edit-icon" id="calendar-edit-icon" aria-label="Enable edit mode" title="Enable edit mode">
+        <svg id="calendar-edit-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="calendar-footer">
+      <button type="button" class="calendar-save-btn director-btn" id="calendar-save-btn" style="display: none;">Save</button>
+    </div>
+  </main>
+
+  <div id="calendar-day-modal" class="calendar-modal" hidden role="dialog" aria-labelledby="modal-title" aria-modal="true">
+    <div class="calendar-modal-inner">
+      <button type="button" class="calendar-modal-close" id="calendar-day-modal-close" aria-label="Close">×</button>
+      <div id="calendar-day-modal-content"></div>
+    </div>
+  </div>
+
+  <div id="calendar-code-modal" class="calendar-modal" hidden role="dialog" aria-labelledby="code-modal-title" aria-modal="true">
+    <div class="calendar-modal-inner">
+      <button type="button" class="calendar-modal-close" id="calendar-code-modal-close" aria-label="Close">×</button>
+      <h2 id="code-modal-title">Enter Access Code</h2>
+      <p style="margin: 0.5rem 0 1rem; color: var(--text-muted);">Directors only: Enter code to enable edit mode.</p>
+      <input type="text" id="calendar-code-input" class="calendar-code-input" placeholder="Enter code" maxlength="4" autocomplete="off" />
+      <div class="calendar-form-buttons" style="margin-top: 1rem;">
+        <button type="button" class="director-btn" id="calendar-code-submit">Submit</button>
+        <button type="button" class="director-btn director-btn-secondary" id="calendar-code-cancel">Cancel</button>
+      </div>
+      <p id="calendar-code-error" style="margin: 0.75rem 0 0; color: var(--maroon); font-size: 0.9rem; display: none;">Unfortunately, only the directors are allowed to edit the rehearsal schedule.</p>
+    </div>
+  </div>
+
+  <script src="js/nav.js"></script>
+  <script src="js/calendar.js?v=4"></script>
+</body>
+</html>

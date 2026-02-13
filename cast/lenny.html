@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lenny – StageSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="nav-home" href="../index.html">StageSync</a>
+      <nav class="nav-menu">
+        <a href="../cast.html">Characters and Roles</a>
+        <a href="../calendar.html">Calendar</a>
+        <a href="../chat.html">Chat</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <a href="../cast.html" class="back-link">← Back to Characters and Roles</a>
+    <header class="cast-header">
+      <h1>Lenny</h1>
+      <label class="cast-select-label" for="cast-choice">Choose a character or production roles</label>
+      <select id="cast-choice" class="cast-select" aria-label="Choose character or production roles">
+        <option value="atticus">Atticus</option>
+        <option value="ishmael">Ishmael</option>
+        <option value="romeo">Romeo</option>
+        <option value="lennie">Lennie</option>
+        <option value="winston">Winston</option>
+        <option value="production-roles">Production roles</option>
+      </select>
+    </header>
+
+    <div id="panel-atticus" class="cast-panel" role="region" aria-labelledby="heading-1">
+      <h2 id="heading-1">Atticus</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Haunted, wise. (To Kill A Mockingbird.)</div>
+        <textarea class="personality-field" data-member="lenny" data-character="atticus" data-original="Haunted, wise. (To Kill A Mockingbird.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="lenny" data-character="atticus" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="lenny" data-character="atticus" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="lenny" data-character="atticus" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-ishmael" class="cast-panel" role="region" aria-labelledby="heading-2" hidden>
+      <h2 id="heading-2">Ishmael</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Curious, dramatic, spotlighting themself. (Moby Dick.)</div>
+        <textarea class="personality-field" data-member="lenny" data-character="ishmael" data-original="Curious, dramatic, spotlighting themself. (Moby Dick.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="lenny" data-character="ishmael" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="lenny" data-character="ishmael" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="lenny" data-character="ishmael" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-romeo" class="cast-panel" role="region" aria-labelledby="heading-3" hidden>
+      <h2 id="heading-3">Romeo</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Depressed/dramatic, loving. (Romeo and Juliet.)</div>
+        <textarea class="personality-field" data-member="lenny" data-character="romeo" data-original="Depressed/dramatic, loving. (Romeo and Juliet.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="lenny" data-character="romeo" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="lenny" data-character="romeo" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="lenny" data-character="romeo" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-lennie" class="cast-panel" role="region" aria-labelledby="heading-4" hidden>
+      <h2 id="heading-4">Lennie</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Childish, oblivious, bit dumb. (Of Mice and Men.)</div>
+        <textarea class="personality-field" data-member="lenny" data-character="lennie" data-original="Childish, oblivious, bit dumb. (Of Mice and Men.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="lenny" data-character="lennie" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="lenny" data-character="lennie" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="lenny" data-character="lennie" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-winston" class="cast-panel" role="region" aria-labelledby="heading-5" hidden>
+      <h2 id="heading-5">Winston</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Exposed to more than they wish to know, coping. Says important things like they're not a big deal; says lines in about one breath. Final line is so resigned — done with it. (1984.)</div>
+        <textarea class="personality-field" data-member="lenny" data-character="winston" data-original="Exposed to more than they wish to know, coping. Says important things like they're not a big deal; says lines in about one breath. Final line is so resigned — done with it. (1984.)" placeholder="Personality traits and notes…" rows="3"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="lenny" data-character="winston" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="lenny" data-character="winston" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="lenny" data-character="winston" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-production-roles" class="cast-panel" role="region" aria-labelledby="heading-prod" hidden>
+      <h2 id="heading-prod">Production roles</h2>
+      <div class="cast-section">
+        <h3>Your role</h3>
+        <p><strong>Lighting</strong>.</p>
+      </div>
+      <div class="cast-section">
+        <h3>Memorisation</h3>
+        <p>All lines and production roles memorised before Term 1 Week 10. No scripts or notes from Term 2.</p>
+      </div>
+      <div class="personal-notes">
+        <label for="personal-notes-lenny">Your notes</label>
+        <textarea id="personal-notes-lenny" placeholder="Private notes, reminders, and ideas…"></textarea>
+      </div>
+    </div>
+  </main>
+  <script src="../js/nav.js"></script>
+  <script src="../js/cast-fields.js"></script>
+  <script src="../js/notes-edit.js"></script>
+  <script src="../js/personality-editor.js"></script>
+  <script>
+    (function () {
+      var select = document.getElementById('cast-choice');
+      var panels = {
+        'atticus': document.getElementById('panel-atticus'),
+        'ishmael': document.getElementById('panel-ishmael'),
+        'romeo': document.getElementById('panel-romeo'),
+        'lennie': document.getElementById('panel-lennie'),
+        'winston': document.getElementById('panel-winston'),
+        'production-roles': document.getElementById('panel-production-roles')
+      };
+      function showPanel(value) {
+        Object.keys(panels).forEach(function (key) {
+          panels[key].hidden = key !== value;
+        });
+      }
+      select.addEventListener('change', function () { showPanel(select.value); });
+      showPanel(select.value);
+    })();
+  </script>
+</body>
+</html>

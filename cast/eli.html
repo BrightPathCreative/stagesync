@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eli – StageSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="nav-home" href="../index.html">StageSync</a>
+      <nav class="nav-menu">
+        <a href="../cast.html">Characters and Roles</a>
+        <a href="../calendar.html">Calendar</a>
+        <a href="../chat.html">Chat</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <a href="../cast.html" class="back-link">← Back to Characters and Roles</a>
+    <header class="cast-header">
+      <h1>Eli</h1>
+      <label class="cast-select-label" for="cast-choice">Choose a character or production roles</label>
+      <select id="cast-choice" class="cast-select" aria-label="Choose character or production roles">
+        <option value="jack">Jack</option>
+        <option value="jade">Jade Mockingbird</option>
+        <option value="obrien">O'Brien</option>
+        <option value="brutus">Brutus</option>
+        <option value="woman-in-red">Woman In Red</option>
+        <option value="production-roles">Production roles</option>
+      </select>
+    </header>
+
+    <div id="panel-jack" class="cast-panel" role="region" aria-labelledby="heading-1">
+      <h2 id="heading-1">Jack</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Dominant, aggressive. (Lord of the Flies.)</div>
+        <textarea class="personality-field" data-member="eli" data-character="jack" data-original="Dominant, aggressive. (Lord of the Flies.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="eli" data-character="jack" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="eli" data-character="jack" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="eli" data-character="jack" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-jade" class="cast-panel" role="region" aria-labelledby="heading-2" hidden>
+      <h2 id="heading-2">Jade Mockingbird</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Macabre, sadistic, a little bit absolutely psychotic/chaotic, chaotic evil. (To Kill A Mockingbird.) Idea: Weapon against Jade Mockingbird.</div>
+        <textarea class="personality-field" data-member="eli" data-character="jade" data-original="Macabre, sadistic, a little bit absolutely psychotic/chaotic, chaotic evil. (To Kill A Mockingbird.) Idea: Weapon against Jade Mockingbird." placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="eli" data-character="jade" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="eli" data-character="jade" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="eli" data-character="jade" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-obrien" class="cast-panel" role="region" aria-labelledby="heading-3" hidden>
+      <h2 id="heading-3">O'Brien</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Concerned; actor probably wants this over. Just trying to get a reaction from Winston so they can arrest and torture him. (1984.)</div>
+        <textarea class="personality-field" data-member="eli" data-character="obrien" data-original="Concerned; actor probably wants this over. Just trying to get a reaction from Winston so they can arrest and torture him. (1984.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="eli" data-character="obrien" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="eli" data-character="obrien" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="eli" data-character="obrien" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-brutus" class="cast-panel" role="region" aria-labelledby="heading-4" hidden>
+      <h2 id="heading-4">Brutus</h2>
+      <div class="cast-section personality-section">
+        <h3>Personality</h3>
+        <div class="personality-readonly">Dumb brute, oak energy. (Julius Caesar.)</div>
+        <textarea class="personality-field" data-member="eli" data-character="brutus" data-original="Dumb brute, oak energy. (Julius Caesar.)" placeholder="Personality traits and notes…" rows="2"></textarea>
+        <div class="personality-actions">
+          <button type="button" class="personality-edit-btn">Edit</button>
+          <button type="button" class="personality-save-btn">Save</button>
+        </div>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="eli" data-character="brutus" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="eli" data-character="brutus" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="eli" data-character="brutus" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-woman-in-red" class="cast-panel" role="region" aria-labelledby="heading-5" hidden>
+      <h2 id="heading-5">Woman In Red</h2>
+      <div class="cast-section">
+        <h3>Personality</h3>
+        <p>“Got that rizz”. (Of Mice and Men.)</p>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Props</h3>
+        <textarea class="character-field" data-member="eli" data-character="woman-in-red" data-field="props" placeholder="List props for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Costumes</h3>
+        <textarea class="character-field" data-member="eli" data-character="woman-in-red" data-field="costumes" placeholder="Costume notes for this character…" rows="2"></textarea>
+      </div>
+      <div class="cast-section character-extras">
+        <h3>Character notes</h3>
+        <textarea class="character-field" data-member="eli" data-character="woman-in-red" data-field="notes" placeholder="Your notes for this character…" rows="4"></textarea>
+      </div>
+    </div>
+
+    <div id="panel-production-roles" class="cast-panel" role="region" aria-labelledby="heading-prod" hidden>
+      <h2 id="heading-prod">Production roles</h2>
+      <div class="cast-section">
+        <h3>Your role</h3>
+        <p><strong>Sound</strong>.</p>
+      </div>
+      <div class="cast-section">
+        <h3>Memorisation</h3>
+        <p>All lines and production roles memorised before Term 1 Week 10. No scripts or notes from Term 2.</p>
+      </div>
+      <div class="personal-notes">
+        <label for="personal-notes-eli">Your notes</label>
+        <textarea id="personal-notes-eli" placeholder="Private notes, reminders, and ideas…"></textarea>
+      </div>
+    </div>
+  </main>
+  <script src="../js/nav.js"></script>
+  <script src="../js/cast-fields.js"></script>
+  <script src="../js/notes-edit.js"></script>
+  <script src="../js/personality-editor.js"></script>
+  <script>
+    (function () {
+      var select = document.getElementById('cast-choice');
+      var panels = {
+        'jack': document.getElementById('panel-jack'),
+        'jade': document.getElementById('panel-jade'),
+        'obrien': document.getElementById('panel-obrien'),
+        'brutus': document.getElementById('panel-brutus'),
+        'woman-in-red': document.getElementById('panel-woman-in-red'),
+        'production-roles': document.getElementById('panel-production-roles')
+      };
+      function showPanel(value) {
+        Object.keys(panels).forEach(function (key) {
+          panels[key].hidden = key !== value;
+        });
+      }
+      select.addEventListener('change', function () { showPanel(select.value); });
+      showPanel(select.value);
+    })();
+  </script>
+</body>
+</html>

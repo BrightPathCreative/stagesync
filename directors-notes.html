@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Directors' notes – Year 9 Drama</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="nav-home" href="index.html">StageSync</a>
+      <nav class="nav-menu">
+        <a href="cast.html">Characters and Roles</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="chat.html">Chat</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <h1 class="page-title">Directors' notes</h1>
+
+    <div id="director-gate" class="directors-gate card" style="max-width: 420px; margin-bottom: 1.5rem;">
+      <p style="margin: 0 0 0.75rem; color: var(--text);">This page is only for the two directors. Who are you?</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+        <button type="button" class="director-btn" data-who="lucas">Lucas (Director)</button>
+        <button type="button" class="director-btn" data-who="cc">C.C (Assistant Director)</button>
+        <button type="button" class="director-btn director-btn-secondary" data-who="none">I'm not a director</button>
+      </div>
+    </div>
+
+    <div id="director-view" class="directors-notes-view" hidden>
+      <p class="directors-signed-in" style="margin: 0 0 1rem; font-size: 0.95rem; color: var(--text-muted);">
+        Signed in as <strong id="director-name"></strong>. <button type="button" id="switch-person" class="link-style-btn">Switch person</button>
+      </p>
+      <div class="detail-section">
+        <div class="notes-header">
+          <span class="cast-select-label" style="margin-bottom: 0;">Your notes</span>
+          <div class="notes-actions">
+            <button type="button" class="notes-btn" id="directors-edit-btn">Edit</button>
+            <button type="button" class="notes-btn save-btn" id="directors-save-btn" style="display: none;">Save</button>
+          </div>
+        </div>
+        <div class="notes-readonly" id="directors-notes-readonly"></div>
+        <textarea id="directors-notes-content" class="directors-notes-textarea" rows="16" placeholder="Add rehearsal notes, reminders, ideas for scenes, blocking notes…" style="display: none;"></textarea>
+      </div>
+    </div>
+
+    <div id="non-director-view" class="directors-locked card" hidden>
+      <p style="margin: 0;">This page is for the two directors only (Lucas and C.C). If you need something from the directors, use <a href="chat.html">Chat</a>.</p>
+      <p style="margin: 0.75rem 0 0;"><button type="button" id="try-again-btn" class="link-style-btn">I'm actually a director</button></p>
+    </div>
+  </main>
+  <script src="js/nav.js"></script>
+  <script>
+    (function () {
+      var STORAGE_KEY = 'year9drama_directors_notes';
+      var WHO_KEY = 'year9drama_director';
+      var gate = document.getElementById('director-gate');
+      var directorView = document.getElementById('director-view');
+      var nonDirectorView = document.getElementById('non-director-view');
+      var directorNameEl = document.getElementById('director-name');
+      var notesEl = document.getElementById('directors-notes-content');
+      var readonlyView = document.getElementById('directors-notes-readonly');
+      var editBtn = document.getElementById('directors-edit-btn');
+      var saveBtn = document.getElementById('directors-save-btn');
+      var switchBtn = document.getElementById('switch-person');
+
+      function getWho() {
+        try {
+          return localStorage.getItem(WHO_KEY) || '';
+        } catch (e) {
+          return '';
+        }
+      }
+
+      function setWho(who) {
+        try {
+          localStorage.setItem(WHO_KEY, who);
+        } catch (e) {}
+      }
+
+      function isDirector() {
+        var w = getWho();
+        return w === 'lucas' || w === 'cc';
+      }
+
+      function loadNotes() {
+        if (!isDirector()) return;
+        try {
+          var saved = localStorage.getItem(STORAGE_KEY) || '';
+          notesEl.value = saved;
+          if (saved) {
+            readonlyView.textContent = saved;
+            readonlyView.classList.remove('empty');
+          } else {
+            readonlyView.textContent = notesEl.placeholder || 'No notes yet. Click Edit to add notes.';
+            readonlyView.classList.add('empty');
+          }
+        } catch (e) {
+          notesEl.value = '';
+          readonlyView.textContent = notesEl.placeholder || 'No notes yet. Click Edit to add notes.';
+          readonlyView.classList.add('empty');
+        }
+      }
+
+      function saveNotes() {
+        if (!isDirector()) return;
+        try {
+          localStorage.setItem(STORAGE_KEY, notesEl.value);
+          if (notesEl.value) {
+            readonlyView.textContent = notesEl.value;
+            readonlyView.classList.remove('empty');
+          } else {
+            readonlyView.textContent = notesEl.placeholder || 'No notes yet. Click Edit to add notes.';
+            readonlyView.classList.add('empty');
+          }
+        } catch (e) {}
+      }
+
+      function enterEditMode() {
+        notesEl.style.display = 'block';
+        readonlyView.style.display = 'none';
+        editBtn.style.display = 'none';
+        saveBtn.style.display = 'block';
+        notesEl.focus();
+      }
+
+      function exitEditMode() {
+        notesEl.style.display = 'none';
+        readonlyView.style.display = 'block';
+        editBtn.style.display = 'block';
+        saveBtn.style.display = 'none';
+        saveNotes();
+      }
+
+      function applyView() {
+        var who = getWho();
+        gate.hidden = isDirector() || who === 'none';
+        directorView.hidden = !isDirector();
+        nonDirectorView.hidden = who !== 'none';
+
+        if (who === 'lucas') {
+          directorNameEl.textContent = 'Lucas (Director)';
+        } else if (who === 'cc') {
+          directorNameEl.textContent = 'C.C (Assistant Director)';
+        }
+
+        if (isDirector()) {
+          loadNotes();
+          exitEditMode(); // Start in read-only mode
+        }
+      }
+
+      gate.querySelectorAll('.director-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setWho(btn.getAttribute('data-who'));
+          applyView();
+        });
+      });
+
+      switchBtn.addEventListener('click', function () {
+        setWho('');
+        applyView();
+      });
+
+      var tryAgainBtn = document.getElementById('try-again-btn');
+      if (tryAgainBtn) {
+        tryAgainBtn.addEventListener('click', function () {
+          setWho('');
+          applyView();
+        });
+      }
+
+      if (editBtn) {
+        editBtn.addEventListener('click', enterEditMode);
+      }
+      if (saveBtn) {
+        saveBtn.addEventListener('click', exitEditMode);
+      }
+
+      applyView();
+    })();
+  </script>
+</body>
+</html>
