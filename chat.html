@@ -13,7 +13,12 @@
   <header class="site-header">
     <div class="nav-inner">
       <a class="nav-home" href="index.html">StageSync</a>
-      <nav class="nav-menu">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-menu" id="nav-menu">
         <a href="cast.html">Characters and Roles</a>
         <a href="calendar.html">Calendar</a>
         <a href="chat.html">Chat</a>
@@ -23,13 +28,69 @@
 
   <main class="page">
     <h1 class="page-title">Chat</h1>
-    <p>Group chat for everyone, and a way to message the directors directly.</p>
-    <div class="placeholder-box" style="margin-top: 1.5rem;">
-      <p><strong>Group chat</strong> – Everyone can talk here.</p>
-      <p><strong>Shout to directors</strong> – Private messages to Director / Assistant Director.</p>
-      <p>Chat will work when connected to a backend (e.g. Firebase or a server).</p>
+
+    <!-- Authentication Gate -->
+    <div id="chat-gate" class="chat-gate card" style="max-width: 500px; margin-bottom: 1.5rem;">
+      <p style="margin: 0 0 1rem; color: var(--text);">This chat is only for cast members. Enter your PIN to access.</p>
+      <div id="pin-entry-container">
+        <form id="pin-form" style="display: flex; flex-direction: column; gap: 1rem;">
+          <div>
+            <label for="pin-input" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text);">Enter your PIN:</label>
+            <input 
+              type="password" 
+              id="pin-input" 
+              class="pin-input" 
+              placeholder="Enter PIN" 
+              autocomplete="off"
+              maxlength="20"
+              style="width: 100%; padding: 0.75rem; font-size: 1.1rem; text-align: center; letter-spacing: 0.2em; border: 2px solid var(--cream-darker); border-radius: 8px; font-family: monospace;"
+            />
+          </div>
+          <button type="submit" id="pin-submit-btn" class="pin-submit-btn">Enter Chat</button>
+          <p id="auth-error" class="auth-error" style="display: none; margin: 0; color: #d32f2f; font-size: 0.9rem; text-align: center;"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Chat Interface -->
+    <div id="chat-view" hidden>
+      <div class="chat-header card" style="margin-bottom: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <p style="margin: 0; font-size: 0.95rem; color: var(--text-muted);">
+            Signed in as <strong id="chat-user-name"></strong>
+          </p>
+          <button type="button" id="sign-out-btn" class="link-style-btn">Sign out</button>
+        </div>
+      </div>
+
+      <div class="chat-container card">
+        <div class="chat-tabs">
+          <button type="button" class="chat-tab active" data-tab="group">Group Chat</button>
+          <button type="button" class="chat-tab" data-tab="directors">Shout to Directors</button>
+        </div>
+
+        <!-- Group Chat -->
+        <div id="group-chat-panel" class="chat-panel active">
+          <div id="group-messages" class="chat-messages"></div>
+          <div class="chat-input-container">
+            <textarea id="group-message-input" class="chat-input" placeholder="Type your message..." rows="2"></textarea>
+            <button type="button" id="group-send-btn" class="chat-send-btn">Send</button>
+          </div>
+        </div>
+
+        <!-- Directors Chat -->
+        <div id="directors-chat-panel" class="chat-panel">
+          <div id="directors-messages" class="chat-messages"></div>
+          <div class="chat-input-container">
+            <textarea id="directors-message-input" class="chat-input" placeholder="Message the directors..." rows="2"></textarea>
+            <button type="button" id="directors-send-btn" class="chat-send-btn">Send</button>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <script src="js/nav.js"></script>
+  <script src="js/pin-config.js"></script>
+  <script src="js/chat.js"></script>
 </body>
 </html>
