@@ -1,5 +1,5 @@
 (function () {
-  var STORAGE_KEY = 'year9drama_calendar_events';
+  var STORAGE_KEY = 'stagesync_calendar_events';
   var DIRECTOR_IDS = ['lucas', 'cc'];
 
   function getStoredEvents() {
@@ -20,7 +20,7 @@
   }
 
   var EDIT_CODE = '2665';
-  var EDIT_MODE_KEY = 'year9drama_calendar_edit_mode';
+  var EDIT_MODE_KEY = 'stagesync_calendar_edit_mode';
   
   function isDirector() {
     try {

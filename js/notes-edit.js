@@ -8,7 +8,7 @@
       if (!textarea) return;
 
       var label = container.querySelector('label');
-      var storageKey = 'year9drama_personal_notes_' + textarea.id.replace('personal-notes-', '');
+      var storageKey = 'stagesync_personal_notes_' + textarea.id.replace('personal-notes-', '');
       
       // Create header with label and buttons
       var header = document.createElement('div');
@@ -155,7 +155,7 @@
         var member = textarea.getAttribute('data-member');
         var character = textarea.getAttribute('data-character');
         var field = textarea.getAttribute('data-field');
-        var storageKey = 'year9drama_cast_' + member + '_' + character + '_' + field;
+        var storageKey = 'stagesync_cast_' + member + '_' + character + '_' + field;
         
         // Load content
         function loadContent() {

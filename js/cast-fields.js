@@ -1,5 +1,5 @@
 (function () {
-  var PREFIX = 'year9drama_cast_';
+  var PREFIX = 'stagesync_cast_';
   function key(member, character, field) {
     return PREFIX + member + '_' + character + '_' + field;
   }

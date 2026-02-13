@@ -2,8 +2,8 @@
   'use strict';
 
   var EDIT_CODE = '2665';
-  var PREFIX = 'year9drama_cast_';
-  var PERSONALITY_EDIT_KEY = 'year9drama_personality_edit_mode';
+  var PREFIX = 'stagesync_cast_';
+  var PERSONALITY_EDIT_KEY = 'stagesync_personality_edit_mode';
 
   function key(member, character) {
     return PREFIX + member + '_' + character + '_personality';
