@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="home-page">
+<body class="home-page page-loading">
   <!-- Entry gate: PIN required to access site -->
   <div id="entry-gate" class="entry-gate">
     <div class="entry-gate-card card">
@@ -39,6 +39,7 @@
         <a href="calendar.html">Calendar</a>
         <a href="chat.html">Chat</a>
         <a href="set-the-stage.html">Set The Stage</a>
+        <a href="script.html">Script</a>
         <button type="button" id="nav-sign-out" class="nav-sign-out link-style-btn" style="background: none; border: none; font: inherit; color: inherit; cursor: pointer; padding: 0; margin-left: 0.5rem;">Sign out</button>
       </nav>
     </div>
@@ -142,13 +143,26 @@
           if (input) input.style.borderColor = '';
         }
 
-        function applyAuth() {
+        function applyAuth(animate) {
           var auth = getStoredAuth();
           var valid = auth && auth.pin && ENTRY_PIN_MAP[auth.pin];
           if (valid) {
-            gate.style.display = 'none';
-            content.style.display = 'block';
-            content.removeAttribute('hidden');
+            if (animate) {
+              gate.classList.add('dissolving');
+              gate.addEventListener('animationend', function onDone() {
+                gate.removeEventListener('animationend', onDone);
+                gate.style.display = 'none';
+                gate.classList.remove('dissolving');
+                content.style.display = 'block';
+                content.removeAttribute('hidden');
+                content.classList.add('revealing');
+                setTimeout(function() { content.classList.remove('revealing'); }, 500);
+              }, { once: true });
+            } else {
+              gate.style.display = 'none';
+              content.style.display = 'block';
+              content.removeAttribute('hidden');
+            }
           } else {
             gate.style.display = '';
             content.style.display = 'none';
@@ -168,14 +182,14 @@
           }
           hideError();
           setStoredAuth(pin, ENTRY_PIN_MAP[pin]);
-          applyAuth();
+          applyAuth(true);
         }
 
         submitBtn.onclick = function() { doSubmit(); };
         input.onkeydown = function(e) { if (e.key === 'Enter') { e.preventDefault(); doSubmit(); } };
         input.oninput = hideError;
 
-        applyAuth();
+        applyAuth(false);
 
         var signOut = document.getElementById('nav-sign-out');
         if (signOut) signOut.onclick = function() { clearStoredAuth(); applyAuth(); input.value = ''; input.focus(); };
@@ -188,6 +202,7 @@
       }
     })();
   </script>
+  <script src="js/page-transitions.js"></script>
   <script src="js/nav.js"></script>
   <script src="js/pin-config.js"></script>
   <script src="js/entry-auth.js"></script>

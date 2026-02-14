@@ -51,11 +51,19 @@
     if (main) {
       var noteId = 'props-costumes-note';
       if (!document.getElementById(noteId)) {
-        var note = document.createElement('p');
-        note.id = noteId;
-        note.className = 'props-costumes-note';
-        note.textContent = 'The props and costume section is only available to be edited by the directors and those that have it as a production role.';
-        main.appendChild(note);
+        var note1 = document.createElement('p');
+        note1.id = noteId;
+        note1.className = 'props-costumes-note';
+        note1.textContent = 'The props and costume section is only available to be edited by the directors and those that have it as a production role.';
+        main.appendChild(note1);
+      }
+      var ideasNoteId = 'character-ideas-note';
+      if (!document.getElementById(ideasNoteId)) {
+        var note2 = document.createElement('p');
+        note2.id = ideasNoteId;
+        note2.className = 'props-costumes-note';
+        note2.textContent = 'The Character Ideas section is only editable by yourself (the person you are signed in as).';
+        main.appendChild(note2);
       }
     }
 
