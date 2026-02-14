@@ -4,6 +4,10 @@
   var GROUP_MESSAGES_KEY = 'stagesync_group_messages';
   var DIRECTORS_MESSAGES_KEY = 'stagesync_directors_messages';
 
+  var groupCache = [];
+  var directorsCache = [];
+  var supabaseClient = null;
+
   var chatView = document.getElementById('chat-view');
   var chatUserName = document.getElementById('chat-user-name');
   var signOutBtn = document.getElementById('sign-out-btn');
@@ -21,6 +25,11 @@
     if (typeof window.StageSyncAuth === 'undefined') return null;
     var member = window.StageSyncAuth.getCastMember();
     return member || null;
+  }
+
+  function useSupabase() {
+    var cfg = window.StageSyncSupabase;
+    return cfg && cfg.url && cfg.anonKey && typeof window.supabase !== 'undefined';
   }
 
   function canDeleteMessages() {
@@ -41,6 +50,9 @@
   }
 
   function getMessages(type) {
+    if (useSupabase()) {
+      return type === 'group' ? groupCache.slice() : directorsCache.slice();
+    }
     try {
       var key = type === 'group' ? GROUP_MESSAGES_KEY : DIRECTORS_MESSAGES_KEY;
       var stored = localStorage.getItem(key);
@@ -55,6 +67,50 @@
       var key = type === 'group' ? GROUP_MESSAGES_KEY : DIRECTORS_MESSAGES_KEY;
       localStorage.setItem(key, JSON.stringify(messages));
     } catch (e) {}
+  }
+
+  function loadMessagesFromSupabase(type, callback) {
+    if (!supabaseClient) return callback && callback();
+    supabaseClient
+      .from('chat_messages')
+      .select('id, cast_member, text, timestamp')
+      .eq('type', type)
+      .order('timestamp', { ascending: true })
+      .then(function (res) {
+        var list = (res.data || []).map(function (row) {
+          return { id: row.id, castMember: row.cast_member, text: row.text, timestamp: row.timestamp };
+        });
+        if (type === 'group') groupCache = list; else directorsCache = list;
+        if (callback) callback();
+      })
+      .catch(function () {
+        if (callback) callback();
+      });
+  }
+
+  function subscribeRealtime() {
+    if (!supabaseClient) return;
+    supabaseClient
+      .channel('stagesync-chat')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, function (payload) {
+        var row = payload.new;
+        var msg = { id: row.id, castMember: row.cast_member, text: row.text, timestamp: row.timestamp };
+        if (row.type === 'group') {
+          groupCache.push(msg);
+          groupCache.sort(function (a, b) { return a.timestamp - b.timestamp; });
+        } else {
+          directorsCache.push(msg);
+          directorsCache.sort(function (a, b) { return a.timestamp - b.timestamp; });
+        }
+        refreshVisibleChat();
+      })
+      .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'chat_messages' }, function (payload) {
+        var id = payload.old.id;
+        groupCache = groupCache.filter(function (m) { return m.id !== id; });
+        directorsCache = directorsCache.filter(function (m) { return m.id !== id; });
+        refreshVisibleChat();
+      })
+      .subscribe();
   }
 
   function formatTime(timestamp) {
@@ -108,12 +164,13 @@
       var userName = typeof CAST_DISPLAY_NAMES !== 'undefined' && CAST_DISPLAY_NAMES[msg.castMember]
         ? CAST_DISPLAY_NAMES[msg.castMember]
         : msg.castMember;
-      html += '<div class="chat-message' + (isOwnMessage ? ' chat-message-own' : '') + '" data-msg-index="' + index + '">';
+      var msgId = msg.id ? ' data-msg-id="' + escapeHtml(String(msg.id)) + '"' : '';
+      html += '<div class="chat-message' + (isOwnMessage ? ' chat-message-own' : '') + '" data-msg-index="' + index + '"' + msgId + '>';
       html += '<div class="chat-message-header">';
       html += '<strong class="chat-message-author">' + escapeHtml(userName) + '</strong>';
       html += '<span class="chat-message-time">' + escapeHtml(formatTime(msg.timestamp)) + '</span>';
       if (canDeleteMessages()) {
-        html += '<button type="button" class="chat-message-delete" aria-label="Delete message" data-msg-index="' + index + '">×</button>';
+        html += '<button type="button" class="chat-message-delete" aria-label="Delete message" data-msg-index="' + index + '"' + (msg.id ? ' data-msg-id="' + escapeHtml(String(msg.id)) + '"' : '') + '>×</button>';
       }
       html += '</div>';
       html += '<div class="chat-message-text">' + escapeHtml(msg.text).replace(/\n/g, '<br>') + '</div>';
@@ -124,6 +181,13 @@
     if (canDeleteMessages()) {
       container.querySelectorAll('.chat-message-delete').forEach(function (btn) {
         btn.addEventListener('click', function () {
+          var msgId = btn.getAttribute('data-msg-id');
+          if (useSupabase() && msgId) {
+            supabaseClient.from('chat_messages').delete().eq('id', msgId).then(function () {
+              refreshVisibleChat();
+            });
+            return;
+          }
           var idx = parseInt(btn.getAttribute('data-msg-index'), 10);
           var list = getMessages(type);
           if (idx >= 0 && idx < list.length) {
@@ -138,6 +202,16 @@
 
   function sendMessage(type, text) {
     if (!text.trim() || !currentCastMember) return;
+    if (useSupabase() && supabaseClient) {
+      supabaseClient
+        .from('chat_messages')
+        .insert({ type: type, cast_member: currentCastMember, text: text.trim(), timestamp: Date.now() })
+        .then(function () {
+          if (type === 'group' && groupInput) groupInput.value = '';
+          if (type === 'directors' && directorsInput) directorsInput.value = '';
+        });
+      return;
+    }
     var messages = getMessages(type);
     messages.push({ castMember: currentCastMember, text: text.trim(), timestamp: Date.now() });
     saveMessages(type, messages);
@@ -194,13 +268,41 @@
     });
   }
 
+  function refreshVisibleChat() {
+    var activeTab = document.querySelector('.chat-tab.active');
+    var tabName = activeTab ? activeTab.getAttribute('data-tab') : 'group';
+    renderMessages(tabName);
+  }
+
   function init() {
     currentCastMember = checkAuth();
     if (!currentCastMember) {
       window.location.href = 'index.html';
       return;
     }
+
+    if (useSupabase()) {
+      var cfg = window.StageSyncSupabase;
+      supabaseClient = window.supabase.createClient(cfg.url, cfg.anonKey);
+      loadMessagesFromSupabase('group', function () {
+        loadMessagesFromSupabase('directors', function () {
+          subscribeRealtime();
+          showChat();
+        });
+      });
+      return;
+    }
+
     showChat();
+    window.addEventListener('storage', function (e) {
+      if (e.key === GROUP_MESSAGES_KEY || e.key === DIRECTORS_MESSAGES_KEY) {
+        refreshVisibleChat();
+      }
+    });
+    setInterval(function () {
+      if (!currentCastMember) return;
+      refreshVisibleChat();
+    }, 3000);
   }
 
   if (document.readyState === 'loading') {

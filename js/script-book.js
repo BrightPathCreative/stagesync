@@ -79,9 +79,22 @@
     if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
   }
 
+  function getStoredScript() {
+    if (typeof window.StageSyncStore !== 'undefined') {
+      var v = window.StageSyncStore.getItem(SCRIPT_STORAGE_KEY);
+      if (v != null && v.trim()) return v;
+    }
+    return localStorage.getItem(SCRIPT_STORAGE_KEY);
+  }
+
+  function setStoredScript(text) {
+    try { localStorage.setItem(SCRIPT_STORAGE_KEY, text); } catch (e) {}
+    if (typeof window.StageSyncStore !== 'undefined') window.StageSyncStore.setItem(SCRIPT_STORAGE_KEY, text);
+  }
+
   function loadScript() {
     try {
-      var stored = localStorage.getItem(SCRIPT_STORAGE_KEY);
+      var stored = getStoredScript();
       if (stored && stored.trim()) {
         fullScriptText = stored;
         pages = splitIntoPages(fullScriptText);
@@ -95,7 +108,7 @@
       .then(function (r) { return r.ok ? r.text() : Promise.reject(new Error('Not found')); })
       .then(function (text) {
         fullScriptText = text;
-        try { localStorage.setItem(SCRIPT_STORAGE_KEY, text); } catch (e) {}
+        setStoredScript(text);
         pages = splitIntoPages(text);
         currentPage = 0;
         render();
@@ -132,7 +145,7 @@
   function saveScript() {
     var text = editText.value.trim();
     fullScriptText = text;
-    try { localStorage.setItem(SCRIPT_STORAGE_KEY, text); } catch (e) {}
+    setStoredScript(text);
     pages = splitIntoPages(text);
     currentPage = 0;
     hideEditMode();
@@ -158,5 +171,16 @@
   if (saveBtn) saveBtn.addEventListener('click', saveScript);
   if (cancelEditBtn) cancelEditBtn.addEventListener('click', function () { hideEditMode(); render(); });
 
-  loadScript();
+  function init() {
+    if (typeof window.StageSyncStore !== 'undefined' && window.StageSyncStore.init) {
+      window.StageSyncStore.init(loadScript);
+    } else {
+      loadScript();
+    }
+    window.addEventListener('stagesync-store-update', function (e) {
+      if (e.detail && e.detail.key === SCRIPT_STORAGE_KEY) loadScript();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();

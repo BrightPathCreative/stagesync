@@ -12,12 +12,25 @@
     return PREFIX + part;
   }
 
+  function getVal(key) {
+    if (typeof window.StageSyncStore !== 'undefined') {
+      var v = window.StageSyncStore.getItem(key);
+      if (v != null) return v;
+    }
+    return localStorage.getItem(key);
+  }
+
+  function setVal(key, val) {
+    try { localStorage.setItem(key, val); } catch (e) {}
+    if (typeof window.StageSyncStore !== 'undefined') window.StageSyncStore.setItem(key, val);
+  }
+
   function load() {
     document.querySelectorAll('.set-notes').forEach(function (el) {
       var part = el.getAttribute('data-set-part');
       if (!part) return;
       try {
-        var val = localStorage.getItem(storageKey(part));
+        var val = getVal(storageKey(part));
         if (val != null) el.value = val;
       } catch (e) {}
     });
@@ -27,11 +40,11 @@
     var part = el.getAttribute('data-set-part');
     if (!part) return;
     try {
-      localStorage.setItem(storageKey(part), el.value);
+      setVal(storageKey(part), el.value);
     } catch (e) {}
   }
 
-  function init() {
+  function runInit() {
     var allowed = canEditTheSet();
     document.querySelectorAll('.set-notes').forEach(function (el) {
       if (!allowed) {
@@ -43,6 +56,17 @@
       }
     });
     load();
+  }
+
+  function init() {
+    if (typeof window.StageSyncStore !== 'undefined' && window.StageSyncStore.init) {
+      window.StageSyncStore.init(runInit);
+    } else {
+      runInit();
+    }
+    window.addEventListener('stagesync-store-update', function (e) {
+      if (e.detail && e.detail.key && e.detail.key.indexOf('stagesync_set_') === 0) load();
+    });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

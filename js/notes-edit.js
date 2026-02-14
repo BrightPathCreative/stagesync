@@ -49,7 +49,8 @@
       // Load saved content
       function loadContent() {
         try {
-          var saved = localStorage.getItem(storageKey);
+          var saved = (typeof window.StageSyncStore !== 'undefined') ? window.StageSyncStore.getItem(storageKey) : null;
+          if (saved == null) saved = localStorage.getItem(storageKey);
           if (saved) {
             textarea.value = saved;
             readonlyView.textContent = saved;
@@ -67,8 +68,10 @@
       // Save content
       function saveContent() {
         try {
-          localStorage.setItem(storageKey, textarea.value);
-          readonlyView.textContent = textarea.value || textarea.placeholder || 'No notes yet. Click Edit to add notes.';
+          var val = textarea.value;
+          localStorage.setItem(storageKey, val);
+          if (typeof window.StageSyncStore !== 'undefined') window.StageSyncStore.setItem(storageKey, val);
+          readonlyView.textContent = val || textarea.placeholder || 'No notes yet. Click Edit to add notes.';
           if (textarea.value) {
             readonlyView.classList.remove('empty');
           } else {
@@ -160,7 +163,8 @@
         // Load content
         function loadContent() {
           try {
-            var saved = localStorage.getItem(storageKey);
+            var saved = (typeof window.StageSyncStore !== 'undefined') ? window.StageSyncStore.getItem(storageKey) : null;
+            if (saved == null) saved = localStorage.getItem(storageKey);
             if (saved) {
               readonlyView.textContent = saved;
               readonlyView.classList.remove('empty');
@@ -220,14 +224,22 @@
     }, 100);
   }
 
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      initPersonalNotes();
-      initCharacterFields();
-    });
-  } else {
+  function runInits() {
     initPersonalNotes();
     initCharacterFields();
+  }
+
+  function onReady() {
+    if (typeof window.StageSyncStore !== 'undefined' && window.StageSyncStore.init) {
+      window.StageSyncStore.init(runInits);
+    } else {
+      runInits();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', onReady);
+  } else {
+    onReady();
   }
 })();

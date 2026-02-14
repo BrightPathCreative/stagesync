@@ -43,7 +43,8 @@
 
       function loadContent() {
         try {
-          var saved = localStorage.getItem(storageKey);
+          var saved = (typeof window.StageSyncStore !== 'undefined') ? window.StageSyncStore.getItem(storageKey) : null;
+          if (saved == null) saved = localStorage.getItem(storageKey);
           if (saved) {
             textarea.value = saved;
             readonlyView.textContent = saved;
@@ -66,8 +67,10 @@
 
       function saveContent() {
         try {
-          localStorage.setItem(storageKey, textarea.value);
-          readonlyView.textContent = textarea.value || textarea.placeholder || '';
+          var val = textarea.value;
+          localStorage.setItem(storageKey, val);
+          if (typeof window.StageSyncStore !== 'undefined') window.StageSyncStore.setItem(storageKey, val);
+          readonlyView.textContent = val || textarea.placeholder || '';
           if (textarea.value) {
             readonlyView.classList.remove('empty');
           } else {
@@ -150,8 +153,10 @@
           var character = textarea.getAttribute('data-character');
           var storageKey = key(member, character);
           try {
-            localStorage.setItem(storageKey, textarea.value);
-            readonlyView.textContent = textarea.value || textarea.placeholder || '';
+            var val = textarea.value;
+            localStorage.setItem(storageKey, val);
+            if (typeof window.StageSyncStore !== 'undefined') window.StageSyncStore.setItem(storageKey, val);
+            readonlyView.textContent = val || textarea.placeholder || '';
             readonlyView.classList.toggle('empty', !textarea.value);
           } catch (e) {}
 
@@ -166,10 +171,21 @@
     });
   }
 
-  function init() {
+  function runInit() {
     updatePersonalityFieldsVisibility();
     initPersonalityFields();
     setupEditButtons();
+  }
+
+  function init() {
+    if (typeof window.StageSyncStore !== 'undefined' && window.StageSyncStore.init) {
+      window.StageSyncStore.init(runInit);
+    } else {
+      runInit();
+    }
+    window.addEventListener('stagesync-store-update', function (e) {
+      if (e.detail && e.detail.key && e.detail.key.indexOf(PREFIX) === 0 && e.detail.key.indexOf('_personality') !== -1) initPersonalityFields();
+    });
   }
 
   if (document.readyState === 'loading') {

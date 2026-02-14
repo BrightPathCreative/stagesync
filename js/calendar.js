@@ -4,7 +4,8 @@
 
   function getStoredEvents() {
     try {
-      var raw = localStorage.getItem(STORAGE_KEY);
+      var raw = (typeof window.StageSyncStore !== 'undefined') ? window.StageSyncStore.getItem(STORAGE_KEY) : null;
+      if (raw == null) raw = localStorage.getItem(STORAGE_KEY);
       return raw ? JSON.parse(raw) : {};
     } catch (e) {
       return {};
@@ -12,7 +13,9 @@
   }
 
   function saveEvents(events) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
+    var str = JSON.stringify(events);
+    localStorage.setItem(STORAGE_KEY, str);
+    if (typeof window.StageSyncStore !== 'undefined') window.StageSyncStore.setItem(STORAGE_KEY, str);
   }
 
   function dateKey(d) {
@@ -223,7 +226,7 @@
     renderCalendar();
   }
 
-  function init() {
+  function runInit() {
     var now = new Date();
     currentYear = now.getFullYear();
     currentMonth = now.getMonth();
@@ -319,6 +322,17 @@
         if (e.target === modal) closeDayModal();
       });
     }
+  }
+
+  function init() {
+    if (typeof window.StageSyncStore !== 'undefined' && window.StageSyncStore.init) {
+      window.StageSyncStore.init(runInit);
+    } else {
+      runInit();
+    }
+    window.addEventListener('stagesync-store-update', function (e) {
+      if (e.detail && e.detail.key === STORAGE_KEY) renderCalendar();
+    });
   }
 
   if (document.readyState === 'loading') {

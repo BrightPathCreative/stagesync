@@ -62,8 +62,14 @@
       <p style="margin: 0.75rem 0 0;"><button type="button" id="try-again-btn" class="link-style-btn">I'm actually a director</button></p>
     </div>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/supabase-store.js"></script>
   <script src="js/page-transitions.js"></script>
   <script src="js/nav.js"></script>
+  <script src="js/pin-config.js"></script>
+  <script src="js/entry-auth.js"></script>
+  <script src="js/nav-auth.js"></script>
   <script>
     (function () {
       var STORAGE_KEY = 'stagesync_directors_notes';
@@ -78,18 +84,26 @@
       var saveBtn = document.getElementById('directors-save-btn');
       var switchBtn = document.getElementById('switch-person');
 
-      function getWho() {
+      function getStore(key) {
         try {
-          return localStorage.getItem(WHO_KEY) || '';
-        } catch (e) {
-          return '';
-        }
+          if (typeof window.StageSyncStore !== 'undefined') {
+            var v = window.StageSyncStore.getItem(key);
+            if (v != null) return v;
+          }
+          return localStorage.getItem(key);
+        } catch (e) { return ''; }
+      }
+      function setStore(key, val) {
+        try { localStorage.setItem(key, val); } catch (e) {}
+        if (typeof window.StageSyncStore !== 'undefined') window.StageSyncStore.setItem(key, val);
+      }
+
+      function getWho() {
+        return getStore(WHO_KEY) || '';
       }
 
       function setWho(who) {
-        try {
-          localStorage.setItem(WHO_KEY, who);
-        } catch (e) {}
+        setStore(WHO_KEY, who || '');
       }
 
       function isDirector() {
@@ -100,7 +114,7 @@
       function loadNotes() {
         if (!isDirector()) return;
         try {
-          var saved = localStorage.getItem(STORAGE_KEY) || '';
+          var saved = getStore(STORAGE_KEY) || '';
           notesEl.value = saved;
           if (saved) {
             readonlyView.textContent = saved;
@@ -119,7 +133,7 @@
       function saveNotes() {
         if (!isDirector()) return;
         try {
-          localStorage.setItem(STORAGE_KEY, notesEl.value);
+          setStore(STORAGE_KEY, notesEl.value);
           if (notesEl.value) {
             readonlyView.textContent = notesEl.value;
             readonlyView.classList.remove('empty');
@@ -191,7 +205,17 @@
         saveBtn.addEventListener('click', exitEditMode);
       }
 
-      applyView();
+      function runApplyView() {
+        applyView();
+      }
+      if (typeof window.StageSyncStore !== 'undefined' && window.StageSyncStore.init) {
+        window.StageSyncStore.init(runApplyView);
+      } else {
+        runApplyView();
+      }
+      window.addEventListener('stagesync-store-update', function (e) {
+        if (e.detail && (e.detail.key === STORAGE_KEY || e.detail.key === WHO_KEY)) applyView();
+      });
     })();
   </script>
 </body>
