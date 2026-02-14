@@ -957,6 +957,112 @@ a:hover {
   color: var(--text-muted);
 }
 
+/* ----- Script (book-style) ----- */
+.script-book {
+  padding: 1.5rem;
+}
+
+.script-book-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.script-book-btn {
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--maroon);
+  background: var(--cream-dark);
+  border: 2px solid var(--cream-darker);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.script-book-btn:hover:not(:disabled) {
+  background: var(--cream-darker);
+  border-color: var(--maroon-light);
+}
+
+.script-book-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.script-page-indicator {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.script-book-content {
+  min-height: 280px;
+  padding: 1.25rem;
+  background: var(--white);
+  border: 1px solid var(--cream-darker);
+  border-radius: 6px;
+}
+
+.script-play-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--maroon);
+  margin: 0 0 1rem;
+  line-height: 1.35;
+}
+
+.script-scene-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.75rem;
+}
+
+.script-page-text {
+  margin: 0;
+  font-family: 'Outfit', -apple-system, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: var(--text);
+}
+
+.script-loading {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.script-edit-btn {
+  margin-left: auto;
+}
+
+.script-edit-area {
+  padding: 0;
+  margin-top: 0;
+}
+
+.script-edit-text {
+  width: 100%;
+  padding: 0.75rem;
+  font-family: 'Outfit', -apple-system, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  border: 2px solid var(--cream-darker);
+  border-radius: 6px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.script-edit-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
 /* ----- Other pages (calendar, chat, questions, production) ----- */
 .page-title {
   margin: 0 0 1.5rem;
@@ -1900,6 +2006,22 @@ a:hover {
 
 .chat-message-own .chat-message-time {
   color: rgba(245, 240, 232, 0.8);
+}
+
+.chat-message-delete {
+  padding: 0.15rem 0.4rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.chat-message-delete:hover {
+  color: var(--maroon);
+  background: rgba(114, 47, 55, 0.1);
 }
 
 .chat-message-text {

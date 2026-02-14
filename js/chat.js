@@ -23,6 +23,10 @@
     return member || null;
   }
 
+  function canDeleteMessages() {
+    return currentCastMember === 'lucas';
+  }
+
   function showChat() {
     if (chatView) chatView.hidden = false;
     if (currentCastMember && chatUserName) {
@@ -94,7 +98,7 @@
     }
     var html = '';
     var lastDate = '';
-    messages.forEach(function (msg) {
+    messages.forEach(function (msg, index) {
       var msgDate = formatDate(msg.timestamp);
       if (msgDate !== lastDate) {
         html += '<div class="chat-date-divider">' + escapeHtml(msgDate) + '</div>';
@@ -104,16 +108,32 @@
       var userName = typeof CAST_DISPLAY_NAMES !== 'undefined' && CAST_DISPLAY_NAMES[msg.castMember]
         ? CAST_DISPLAY_NAMES[msg.castMember]
         : msg.castMember;
-      html += '<div class="chat-message' + (isOwnMessage ? ' chat-message-own' : '') + '">';
+      html += '<div class="chat-message' + (isOwnMessage ? ' chat-message-own' : '') + '" data-msg-index="' + index + '">';
       html += '<div class="chat-message-header">';
       html += '<strong class="chat-message-author">' + escapeHtml(userName) + '</strong>';
       html += '<span class="chat-message-time">' + escapeHtml(formatTime(msg.timestamp)) + '</span>';
+      if (canDeleteMessages()) {
+        html += '<button type="button" class="chat-message-delete" aria-label="Delete message" data-msg-index="' + index + '">×</button>';
+      }
       html += '</div>';
       html += '<div class="chat-message-text">' + escapeHtml(msg.text).replace(/\n/g, '<br>') + '</div>';
       html += '</div>';
     });
     container.innerHTML = html;
     container.scrollTop = container.scrollHeight;
+    if (canDeleteMessages()) {
+      container.querySelectorAll('.chat-message-delete').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var idx = parseInt(btn.getAttribute('data-msg-index'), 10);
+          var list = getMessages(type);
+          if (idx >= 0 && idx < list.length) {
+            list.splice(idx, 1);
+            saveMessages(type, list);
+            renderMessages(type);
+          }
+        });
+      });
+    }
   }
 
   function sendMessage(type, text) {
