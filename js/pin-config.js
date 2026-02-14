@@ -30,7 +30,7 @@ var CAST_PIN_MAP = {
   '1736': 'jeremy',     // Jeremy
   '2849': 'kane',       // Kane
   '3950': 'lenny',      // Lenny
-  '4061': 'jordan'      // Jordan
+  '4061': 'jordan'      // Ms Willison
 };
 
 // Cast member display names
@@ -47,5 +47,5 @@ var CAST_DISPLAY_NAMES = {
   'jeremy': 'Jeremy',
   'kane': 'Kane',
   'lenny': 'Lenny',
-  'jordan': 'Jordan'
+  'jordan': 'Ms Willison'
 };

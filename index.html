@@ -12,6 +12,10 @@
 <body class="home-page page-loading">
   <!-- Entry gate: PIN required to access site -->
   <div id="entry-gate" class="entry-gate">
+    <div class="curtain" id="curtain" aria-hidden="true">
+      <div class="curtain-panel curtain-left"></div>
+      <div class="curtain-panel curtain-right"></div>
+    </div>
     <div class="entry-gate-card card">
       <h1 class="entry-gate-title">StageSync</h1>
       <p class="entry-gate-subtitle">Year 9 Drama</p>
@@ -146,7 +150,9 @@
         function applyAuth(animate) {
           var auth = getStoredAuth();
           var valid = auth && auth.pin && ENTRY_PIN_MAP[auth.pin];
+          var curtainEl = document.getElementById('curtain');
           if (valid) {
+            if (curtainEl) curtainEl.classList.remove('open');
             if (animate) {
               gate.classList.add('dissolving');
               gate.addEventListener('animationend', function onDone() {
@@ -167,6 +173,10 @@
             gate.style.display = '';
             content.style.display = 'none';
             content.setAttribute('hidden', '');
+            if (curtainEl) {
+              curtainEl.classList.remove('open');
+              setTimeout(function() { curtainEl.classList.add('open'); }, 400);
+            }
           }
         }
 
