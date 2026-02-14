@@ -19,9 +19,12 @@
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   }
 
-  var EDIT_CODE = '2665';
   var EDIT_MODE_KEY = 'stagesync_calendar_edit_mode';
-  
+
+  function isUserDirector() {
+    return typeof window.StageSyncAuth !== 'undefined' && window.StageSyncAuth.isDirector();
+  }
+
   function isDirector() {
     try {
       return localStorage.getItem(EDIT_MODE_KEY) === 'true';
@@ -29,7 +32,7 @@
       return false;
     }
   }
-  
+
   function setDirectorMode(enabled) {
     try {
       if (enabled) {
@@ -232,13 +235,11 @@
 
     var editIcon = document.getElementById('calendar-edit-icon');
     var saveBtn = document.getElementById('calendar-save-btn');
-    var codeModal = document.getElementById('calendar-code-modal');
-    var codeInput = document.getElementById('calendar-code-input');
-    var codeSubmit = document.getElementById('calendar-code-submit');
-    var codeCancel = document.getElementById('calendar-code-cancel');
-    var codeClose = document.getElementById('calendar-code-modal-close');
-    var codeError = document.getElementById('calendar-code-error');
-    
+
+    if (editIcon && !isUserDirector()) {
+      editIcon.style.display = 'none';
+    }
+
     function updateUI() {
       var inEditMode = isDirector();
       if (saveBtn) {
@@ -271,102 +272,28 @@
       }
     }
     
-    function showCodeModal() {
-      if (codeModal) {
-        codeModal.hidden = false;
-        codeModal.setAttribute('aria-modal', 'true');
-        if (codeInput) {
-          codeInput.value = '';
-          codeInput.focus();
-        }
-        if (codeError) {
-          codeError.style.display = 'none';
-        }
-      }
-    }
-    
-    function closeCodeModal() {
-      if (codeModal) {
-        codeModal.hidden = true;
-        codeModal.removeAttribute('aria-modal');
-      }
-    }
-    
-    function verifyCode() {
-      var entered = codeInput ? codeInput.value.trim() : '';
-      if (entered === EDIT_CODE) {
-        setDirectorMode(true);
-        closeCodeModal();
-        updateUI();
-        renderCalendar();
-        return true;
-      } else {
-        if (codeError) {
-          codeError.style.display = 'block';
-        }
-        if (codeInput) {
-          codeInput.value = '';
-          codeInput.focus();
-        }
-        return false;
-      }
-    }
-    
-    function disableEditMode() {
-      setDirectorMode(false);
+    function toggleEditMode() {
+      setDirectorMode(!isDirector());
       updateUI();
       renderCalendar();
     }
-    
+
     if (editIcon) {
-      editIcon.onclick = function() {
-        if (isDirector()) {
-          disableEditMode();
-        } else {
-          showCodeModal();
-        }
+      editIcon.onclick = function () {
+        if (!isUserDirector()) return;
+        toggleEditMode();
       };
     }
     
     if (saveBtn) {
-      saveBtn.onclick = function() {
-        // Save is handled automatically by localStorage, but we can refresh the view
+      saveBtn.onclick = function () {
         renderCalendar();
-        // Optionally show a brief confirmation
         var originalText = saveBtn.textContent;
         saveBtn.textContent = 'Saved!';
-        setTimeout(function() {
-          saveBtn.textContent = originalText;
-        }, 1000);
+        setTimeout(function () { saveBtn.textContent = originalText; }, 1000);
       };
     }
-    
-    if (codeSubmit) {
-      codeSubmit.onclick = verifyCode;
-    }
-    
-    if (codeCancel || codeClose) {
-      var cancelHandler = function() {
-        closeCodeModal();
-      };
-      if (codeCancel) codeCancel.onclick = cancelHandler;
-      if (codeClose) codeClose.onclick = cancelHandler;
-    }
-    
-    if (codeInput) {
-      codeInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          verifyCode();
-        }
-      });
-    }
-    
-    if (codeModal) {
-      codeModal.addEventListener('click', function(e) {
-        if (e.target === codeModal) closeCodeModal();
-      });
-    }
-    
+
     updateUI();
 
     renderCalendar();

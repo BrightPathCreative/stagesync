@@ -22,6 +22,8 @@
         <a href="cast.html">Characters and Roles</a>
         <a href="calendar.html">Calendar</a>
         <a href="chat.html">Chat</a>
+        <a href="set-the-stage.html">Set The Stage</a>
+        <button type="button" id="nav-sign-out" class="nav-sign-out link-style-btn" style="background: none; border: none; font: inherit; color: inherit; cursor: pointer; padding: 0; margin-left: 0.5rem;">Sign out</button>
       </nav>
     </div>
   </header>
@@ -61,21 +63,10 @@
     </div>
   </div>
 
-  <div id="calendar-code-modal" class="calendar-modal" hidden role="dialog" aria-labelledby="code-modal-title" aria-modal="true">
-    <div class="calendar-modal-inner">
-      <button type="button" class="calendar-modal-close" id="calendar-code-modal-close" aria-label="Close">×</button>
-      <h2 id="code-modal-title">Enter Access Code</h2>
-      <p style="margin: 0.5rem 0 1rem; color: var(--text-muted);">Directors only: Enter code to enable edit mode.</p>
-      <input type="text" id="calendar-code-input" class="calendar-code-input" placeholder="Enter code" maxlength="4" autocomplete="off" />
-      <div class="calendar-form-buttons" style="margin-top: 1rem;">
-        <button type="button" class="director-btn" id="calendar-code-submit">Submit</button>
-        <button type="button" class="director-btn director-btn-secondary" id="calendar-code-cancel">Cancel</button>
-      </div>
-      <p id="calendar-code-error" style="margin: 0.75rem 0 0; color: var(--maroon); font-size: 0.9rem; display: none;">Unfortunately, only the directors are allowed to edit the rehearsal schedule.</p>
-    </div>
-  </div>
-
   <script src="js/nav.js"></script>
-  <script src="js/calendar.js?v=4"></script>
+  <script src="js/pin-config.js"></script>
+  <script src="js/entry-auth.js"></script>
+  <script src="js/nav-auth.js"></script>
+  <script src="js/calendar.js"></script>
 </body>
 </html>

@@ -2,6 +2,18 @@
 // Assign a unique PIN to each cast member
 // Format: 'PIN_NUMBER': 'cast-member-id'
 
+// Site-wide auth: set once at entry, used for chat and director features
+var STAGESYNC_AUTH_KEY = 'stagesync_chat_auth';
+
+// Directors (Lucas and C.C) - can edit calendar and personality traits
+var DIRECTOR_IDS = ['lucas', 'cc'];
+
+// Who can edit props and costumes: directors + production role (Duncan, Ben, Albie)
+var PROPS_COSTUMES_EDIT_IDS = ['lucas', 'cc', 'duncan', 'ben', 'albie'];
+
+// Who can edit "Set The Stage" – The Set section (Kane, Lucas, C.C)
+var THE_SET_EDIT_IDS = ['kane', 'lucas', 'cc'];
+
 var CAST_PIN_MAP = {
   // PINs assigned to cast members
   // Keep these private and share only with the respective cast member
