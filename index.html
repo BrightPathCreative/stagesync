@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>StageSync – Year 9 Drama</title>
-  <link rel="icon" type="image/png" href="Assets/SS_Logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,8 +12,12 @@
 <body class="home-page page-loading">
   <!-- Entry gate: PIN required to access site -->
   <div id="entry-gate" class="entry-gate">
+    <div id="entry-curtain" class="entry-curtain" aria-hidden="true">
+      <div class="entry-curtain-panel entry-curtain-left"></div>
+      <div class="entry-curtain-panel entry-curtain-right"></div>
+    </div>
     <div class="entry-gate-card card">
-      <h1 class="entry-gate-title"><img src="Assets/SS_Logo.png" alt="" class="entry-gate-logo">StageSync</h1>
+      <h1 class="entry-gate-title">StageSync</h1>
       <p class="entry-gate-subtitle">Year 9 Drama</p>
       <p style="margin: 0 0 1rem; color: var(--text);">Enter your private PIN to continue.</p>
       <div id="entry-pin-form" style="display: flex; flex-direction: column; gap: 1rem;">
@@ -29,7 +32,7 @@
   <div id="site-content" hidden>
   <header class="site-header">
     <div class="nav-inner">
-      <a class="nav-home" href="index.html"><img src="Assets/SS_Logo.png" alt="" class="nav-logo">StageSync</a>
+      <a class="nav-home" href="index.html">StageSync</a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -103,6 +106,26 @@
   </div>
   <script>
     (function() {
+      // Curtain: open on first click or scroll (wheel)
+      (function initCurtain() {
+        var curtain = document.getElementById('entry-curtain');
+        if (!curtain) return;
+        function openCurtain() {
+          if (curtain.classList.contains('curtain-open')) return;
+          curtain.classList.add('curtain-open');
+        }
+        function onCurtainFinished(e) {
+          if (e.target.classList.contains('entry-curtain-panel')) {
+            curtain.classList.add('curtain-finished');
+            curtain.removeEventListener('animationend', onCurtainFinished);
+          }
+        }
+        curtain.addEventListener('click', openCurtain, { once: true });
+        curtain.addEventListener('wheel', openCurtain, { once: true, passive: true });
+        curtain.addEventListener('touchstart', openCurtain, { once: true, passive: true });
+        curtain.addEventListener('animationend', onCurtainFinished);
+      })();
+
       // Run entry gate first, before any other scripts
       var ENTRY_PIN_MAP = {
         '1827': 'lucas', '2938': 'cc', '4069': 'angus', '5170': 'duncan',

@@ -32,6 +32,17 @@
   <main class="page">
     <h1 class="page-title">Script</h1>
 
+    <div id="script-memorization-countdown" class="script-countdown card" aria-live="polite">
+      <p class="script-countdown-text">
+        <strong>Lines &amp; production roles due to be memorised: Term 1 Week 10</strong>
+        <span id="script-countdown-days" class="script-countdown-days"></span>
+      </p>
+      <p class="script-countdown-text script-countdown-line2">
+        <strong>Show (14th &amp; 15th May)</strong>
+        <span id="script-countdown-show" class="script-countdown-days"></span>
+      </p>
+    </div>
+
     <section class="script-book card">
       <div class="script-book-nav">
         <button type="button" id="script-prev" class="script-book-btn script-book-prev" aria-label="Previous page">← Previous</button>
@@ -61,5 +72,49 @@
   <script src="js/entry-auth.js"></script>
   <script src="js/nav-auth.js"></script>
   <script src="js/script-book.js"></script>
+  <script>
+    (function () {
+      // Term 1 Week 10: Monday 30th (update the year if needed)
+      var MEMORIZATION_DEADLINE = new Date('2026-03-30');
+      // Show: 14th & 15th May (countdown to opening night)
+      var SHOW_DATE = new Date('2026-05-14');
+
+      var el = document.getElementById('script-countdown-days');
+      var showEl = document.getElementById('script-countdown-show');
+      if (!el) return;
+
+      function update() {
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        var deadline = new Date(MEMORIZATION_DEADLINE);
+        deadline.setHours(0, 0, 0, 0);
+        var diffMs = deadline - today;
+        var diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+        if (diffDays > 0) {
+          el.textContent = ' — ' + diffDays + ' day' + (diffDays === 1 ? '' : 's');
+        } else if (diffDays === 0) {
+          el.textContent = ' — Due today!';
+        } else {
+          el.textContent = ' — Deadline passed. Well done!';
+        }
+
+        if (showEl) {
+          var show = new Date(SHOW_DATE);
+          show.setHours(0, 0, 0, 0);
+          var showDiffMs = show - today;
+          var showDiffDays = Math.ceil(showDiffMs / (1000 * 60 * 60 * 24));
+          if (showDiffDays > 0) {
+            showEl.textContent = ' — ' + showDiffDays + ' day' + (showDiffDays === 1 ? '' : 's');
+          } else if (showDiffDays === 0) {
+            showEl.textContent = ' — Today!';
+          } else {
+            showEl.textContent = ' — Show has passed. Break a leg next time!';
+          }
+        }
+      }
+      update();
+    })();
+  </script>
 </body>
 </html>

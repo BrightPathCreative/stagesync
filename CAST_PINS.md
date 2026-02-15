@@ -18,7 +18,7 @@
 | **Jeremy** | `1736` | Cast Member |
 | **Kane** | `2849` | Cast Member |
 | **Lenny** | `3950` | Cast Member |
-| **Ms Willison** | `4061` | Cast Member |
+| **Ms Willison** | `4061` | Staff (no character profile; can edit calendar, props, Set The Stage, etc.; cannot delete chat messages) |
 
 ## Instructions for Cast Members
 

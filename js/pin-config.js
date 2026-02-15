@@ -5,14 +5,17 @@
 // Site-wide auth: set once at entry, used for chat and director features
 var STAGESYNC_AUTH_KEY = 'stagesync_chat_auth';
 
-// Directors (Lucas and C.C) - can edit calendar and personality traits
-var DIRECTOR_IDS = ['lucas', 'cc'];
+// Directors (Lucas, C.C, Ms Willison) - can edit calendar and personality traits. Ms Willison has no character profile.
+var DIRECTOR_IDS = ['lucas', 'cc', 'jordan'];
+
+// Who can delete chat messages (Lucas and C.C only; Ms Willison cannot)
+var CHAT_DELETE_IDS = ['lucas', 'cc'];
 
 // Who can edit props and costumes: directors + production role (Duncan, Ben, Albie)
-var PROPS_COSTUMES_EDIT_IDS = ['lucas', 'cc', 'duncan', 'ben', 'albie'];
+var PROPS_COSTUMES_EDIT_IDS = ['lucas', 'cc', 'jordan', 'duncan', 'ben', 'albie'];
 
-// Who can edit "Set The Stage" – The Set section (Kane, Lucas, C.C)
-var THE_SET_EDIT_IDS = ['kane', 'lucas', 'cc'];
+// Who can edit "Set The Stage" – The Set section (Kane, Lucas, C.C, Ms Willison)
+var THE_SET_EDIT_IDS = ['kane', 'lucas', 'cc', 'jordan'];
 
 var CAST_PIN_MAP = {
   // PINs assigned to cast members

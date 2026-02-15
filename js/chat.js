@@ -33,7 +33,9 @@
   }
 
   function canDeleteMessages() {
-    return currentCastMember === 'lucas';
+    if (!currentCastMember) return false;
+    var ids = typeof CHAT_DELETE_IDS !== 'undefined' ? CHAT_DELETE_IDS : ['lucas', 'cc'];
+    return ids.indexOf(currentCastMember) !== -1;
   }
 
   function showChat() {
