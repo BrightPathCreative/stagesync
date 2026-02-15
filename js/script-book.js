@@ -127,7 +127,9 @@
     editText.value = fullScriptText;
     if (container) container.style.display = 'none';
     if (editArea) editArea.style.display = 'block';
-    if (editBtn) editBtn.textContent = 'View script';
+    if (editBtn) editBtn.style.display = 'none';
+    if (saveBtn) saveBtn.style.display = '';
+    if (cancelEditBtn) cancelEditBtn.style.display = '';
     if (prevBtn) prevBtn.style.display = 'none';
     if (nextBtn) nextBtn.style.display = 'none';
     if (pageIndicator) pageIndicator.style.display = 'none';
@@ -136,7 +138,9 @@
   function hideEditMode() {
     if (container) container.style.display = 'block';
     if (editArea) editArea.style.display = 'none';
-    if (editBtn) editBtn.textContent = 'Edit script';
+    if (editBtn) editBtn.style.display = canEditScript() ? '' : 'none';
+    if (saveBtn) saveBtn.style.display = 'none';
+    if (cancelEditBtn) cancelEditBtn.style.display = 'none';
     if (prevBtn) prevBtn.style.display = '';
     if (nextBtn) nextBtn.style.display = '';
     if (pageIndicator) pageIndicator.style.display = '';
