@@ -16,6 +16,7 @@
   }
   function load() {
     document.querySelectorAll('.character-field').forEach(function (el) {
+      if (el === document.activeElement) return;
       var m = el.getAttribute('data-member');
       var c = el.getAttribute('data-character');
       var f = el.getAttribute('data-field');
@@ -48,6 +49,7 @@
     runInit();
   }
   window.addEventListener('stagesync-store-update', function (e) {
-    if (e.detail && e.detail.key && e.detail.key.indexOf(PREFIX) === 0) load();
+    if (!e.detail || !e.detail.key || e.detail.key.indexOf(PREFIX) !== 0) return;
+    load();
   });
 })();

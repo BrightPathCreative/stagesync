@@ -43,6 +43,7 @@
 
       function loadContent() {
         try {
+          if (textarea === document.activeElement) return;
           var saved = (typeof window.StageSyncStore !== 'undefined') ? window.StageSyncStore.getItem(storageKey) : null;
           if (saved == null) saved = localStorage.getItem(storageKey);
           if (saved) {

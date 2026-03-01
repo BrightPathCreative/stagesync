@@ -27,6 +27,7 @@
 
   function load() {
     document.querySelectorAll('.set-notes').forEach(function (el) {
+      if (el === document.activeElement) return;
       var part = el.getAttribute('data-set-part');
       if (!part) return;
       try {
