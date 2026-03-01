@@ -935,7 +935,8 @@ a:hover {
   color: var(--text);
 }
 
-.set-notes {
+.set-notes,
+.lights-up-notes {
   width: 100%;
   padding: 0.6rem 0.75rem;
   font: inherit;
@@ -946,7 +947,8 @@ a:hover {
   min-height: 4em;
 }
 
-.set-notes:focus {
+.set-notes:focus,
+.lights-up-notes:focus {
   outline: none;
   border-color: var(--maroon);
 }
